@@ -202,7 +202,7 @@ y\left( 0 \right) = z(0) = 1 \\
 
 ymax = 1.3862627454927932
 
-![graphical-result.png](media/image1.png){width="5.877357830271216in"
+![graphical-result.png](src/graphical-result.png){width="5.877357830271216in"
 height="4.580372922134734in"}
 
 Графический результаты

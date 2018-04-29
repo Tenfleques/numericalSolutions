@@ -69,7 +69,7 @@ public class Main extends Application {
         int ex = 2;
         Double eps = 0.0001;
         h = adamsBashfottDriver(h, x, y, z, ex, max, eps);
-        System.out.println(h);
+
 
         Stage stage = new Stage();
         stage.setTitle("Рещение ДУ 2-го порядка методом Адамса-Башфорта");
@@ -101,9 +101,14 @@ public class Main extends Application {
 
         stage.setScene(scene);
         stage.show();
-
+        double ymax = xyz.get(0).getY();
+        System.out.println(h);
         for(XYZ abc : xyz){
-            System.out.println(abc.getXYZ());
+            ymax = Math.max(ymax,abc.getY());
+            if(abc.getX() <= 6.0)
+               System.out.println(abc.getXYZ());
         }
+
+        System.out.println("ymax = " + ymax);
     }
 }

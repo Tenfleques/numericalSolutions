@@ -3,7 +3,7 @@ package com.flequesboad.exercises;
 import java.util.Arrays;
 import java.util.List;
 
-public class XYZ extends XY implements Comparable{
+public class XYZ extends XY{
     private Double z;
     public XYZ(Double x, Double y, Double z){
         this.setX(x);
@@ -23,16 +23,8 @@ public class XYZ extends XY implements Comparable{
         x[2] = this.getZ();
         return Arrays.asList(x);
     }
-    /*@Override
+    @Override
     public String toString(){
         return this.getX() + "; " + this.getY() + "; " + this.getZ();
-    }*/
-    @Override
-    public int compareTo(Object o) {
-        if(o.getClass() == this.getClass()){
-            //if(this.getY() < cast o.getY())
-        }
-        return 0;
     }
-
 }

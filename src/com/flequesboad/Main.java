@@ -1,5 +1,6 @@
 package com.flequesboad;
 
+import com.flequesboad.exercises.CompareXY;
 import com.flequesboad.exercises.XYZ;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -8,29 +9,32 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.stage.Stage;
 
+import java.util.Collections;
 import java.util.List;
 
 public class Main extends Application {
+    private static AdamsBashfott adamsBashfott;
     private static List<XYZ> xyz;
     private static Double getDelta(XYZ yh, XYZ yh2){
         return Math.abs(yh.getZ() - yh2.getZ());
     }
-    public static double adamsBashfottDriver(Double h, Double x,Double y,Double z,int ex, Double max, Double eps){
-        AdamsBashfott adamsBashfott = new AdamsBashfott(h,x,y,z,ex);
-        adamsBashfott.setMaxX(max);
-        List<XYZ> yh = adamsBashfott.getRes();
+    public static Double adamsBashfottDriver(Double h, Double x,Double y,Double z,int ex, Double max, Double eps){
+        AdamsBashfott aB = new AdamsBashfott(h,x,y,z,ex);
+        aB.setMaxX(max);
+        List<XYZ> yh = aB.getRes();
 
-        adamsBashfott = new AdamsBashfott(h/2.0,x,y,z,ex);
-        adamsBashfott.setMaxX(max);
-        List<XYZ> yh2 = adamsBashfott.getRes();
+        aB = new AdamsBashfott(h/2.0,x,y,z,ex);
+        aB.setMaxX(max);
+        List<XYZ> yh2 = aB.getRes();
 
         Double deltaYMax = getDelta(yh.get(0),yh2.get(0))*h;
 
         for(int i = 0, j = 0; i< yh.size() && j < yh2.size(); ++i, j += 2){
             deltaYMax = Math.max(deltaYMax, getDelta(yh.get(i),yh2.get(j))*h);
         }
-        xyz = yh2;
         h /=2;
+        xyz = yh2;
+        //System.out.print("count");
         if(deltaYMax > eps)
             return adamsBashfottDriver(h, x, y, z, ex, max, eps);
         return h;
@@ -70,6 +74,8 @@ public class Main extends Application {
         Double eps = 0.0001;
         h = adamsBashfottDriver(h, x, y, z, ex, max, eps);
 
+        adamsBashfott = new AdamsBashfott(h,x,y,z,ex);
+        adamsBashfott.setMaxX(max);
 
         Stage stage = new Stage();
         stage.setTitle("Рещение ДУ 2-го порядка методом Адамса-Башфорта");
@@ -100,15 +106,18 @@ public class Main extends Application {
         lineChart.getData().add(zseries);
 
         stage.setScene(scene);
-        stage.show();
-        double ymax = xyz.get(0).getY();
-        System.out.println(h);
-        for(XYZ abc : xyz){
-            ymax = Math.max(ymax,abc.getY());
-            if(abc.getX() <= 6.0)
-               System.out.println(abc.getXYZ());
-        }
+        //stage.show();
 
-        System.out.println("ymax = " + ymax);
+        Integer skipper = 0;
+
+        for(XYZ abc : xyz){
+            if(abc.getX() <= 6.0 && skipper % 16 == 0.0)
+                System.out.println(abc.getXYZ());
+            skipper ++;
+        }
+        Interpolation interpolationMin = new Interpolation(ex);
+        eps = 0.00001;
+        interpolationMin.min(xyz,eps);
+
     }
 }

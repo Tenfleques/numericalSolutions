@@ -60,7 +60,6 @@ public class Fxyz implements Callable<Double>{
         switch (this.ex){
             case 1:
             case 2:
-                return z;
             case 3:
                 return z;
             default:

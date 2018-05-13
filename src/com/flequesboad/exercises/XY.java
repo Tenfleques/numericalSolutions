@@ -1,6 +1,8 @@
 package com.flequesboad.exercises;
 
-public class XY {
+import java.util.Comparator;
+
+public class XY implements Comparator<XY>{
     private Double x,y;
     public XY(){
         this.setX(0.0);
@@ -23,4 +25,12 @@ public class XY {
         return y;
     }
 
+    @Override
+    public String toString(){
+        return x + "; " + y;
+    }
+    @Override
+    public int compare(XY o1, XY o2) {
+        return Double.compare(o1.getY(), o2.getY());
+    }
 }

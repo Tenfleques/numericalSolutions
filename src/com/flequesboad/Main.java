@@ -106,7 +106,7 @@ public class Main extends Application {
         lineChart.getData().add(zseries);
 
         stage.setScene(scene);
-        //stage.show();
+        stage.show();
 
         Integer skipper = 0;
 
@@ -115,9 +115,16 @@ public class Main extends Application {
                 System.out.println(abc.getXYZ());
             skipper ++;
         }
-        Interpolation interpolationMin = new Interpolation(ex);
-        eps = 0.00001;
-        interpolationMin.min(xyz,eps);
 
+        System.out.println();
+        System.out.println("Пойск ymax");
+        Interpolation interpolationMin = new Interpolation(ex);
+        eps = 0.000001;
+        List<List<XYZ>> maxResults = interpolationMin.extreme(xyz,eps, 1);
+
+        maxResults.forEach(points -> {
+            System.out.println();
+            points.forEach(System.out::println);
+        });
     }
 }

@@ -1,13 +1,10 @@
 package com.flequesboad;
 
-import com.flequesboad.exercises.CompareXY;
 import com.flequesboad.exercises.Fxyz;
 import com.flequesboad.exercises.Gxyz;
 import com.flequesboad.exercises.XYZ;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class AdamsBashfott {
@@ -84,121 +81,5 @@ public class AdamsBashfott {
     }
     public void setMaxX(double maxX) {
         this.maxX = maxX;
-    }
-
-
-    public void min(Double eps){
-        List<XYZ> points, fgs;
-
-        if(res.size() < 1)
-            this.getRes();
-
-        System.out.println(Collections.min(res, new CompareXY()));
-        XYZ minpoint = Collections.min(res, new CompareXY());
-        int indexMinPoint = res.indexOf(minpoint);
-        //fgs = res.subList(indexMinPoint-4,indexMinPoint+2);
-        points = res.subList(indexMinPoint-1,indexMinPoint+2);
-
-        //Collections.reverse(fgs);
-        points.forEach(a-> System.out.println(a));
-
-        /*Double[][] D = new Double[3][3]; //(3,{0,0,0});
-        for(int i = 0; i < 3; ++i){
-            for(int j = 0; j < 3; ++j)
-                D[i][j] = 0.0;
-        }
-        int i,j, k = 0;
-        Double Q;
-        i = 0;
-        for(XYZ c: points){
-            D[i][0] = c.getY();
-            i++;
-        }
-        while(Math.abs(points.get(0).getX() - points.get(2).getX()) > eps && k < 5) {
-            for(j = 1; j < 3; j++)
-                for(i = j; i < 3; i++)
-                    D[i][j]=(D[i][j-1]-D[j-1][j-1])/(points.get(i).getX()-points.get(j-1).getX());
-
-            Q =(D[2][2] * (points.get(0).getX() + points.get(1).getX())
-                    - D[1][1]) / (2 * D[2][2]);
-
-            if(points.get(2).getY() < points.get(0).getY()){
-                //D[0][0] = fgsTmp.get(0).getY();
-                //points.set(0, fgsTmp.get(0));
-            }else{
-                //D[2][0] = fgsTmp.get(0).getY();
-                //points.set(2, fgsTmp.get(0));
-            }
-            k++;
-            System.out.println("k: " + k + "\t x*: " + Q + "\t f(x) " + points.get(1));
-        }*/
-
-    }
-    public void maxx(Double eps){
-        List<XYZ> points, fgs;
-
-        if(res.size() < 1)
-            this.getRes();
-
-
-        XYZ maxpoint = Collections.max(res, new CompareXY());
-        int indexMaxPoint = res.indexOf(maxpoint);
-        fgs = res.subList(indexMaxPoint-5,indexMaxPoint+2);
-        points = fgs.subList(4,7);
-
-        System.out.println();
-        fgs.forEach(a-> System.out.println(a));
-
-        System.out.println();
-        points.forEach(a-> System.out.println(a));
-
-        Double[][] D = new Double[3][3]; //(3,{0,0,0});
-        for(int i = 0; i < 3; ++i){
-            for(int j = 0; j < 3; ++j)
-                D[i][j] = 0.0;
-        }
-        int i,j, k = 0;
-        Double Q;
-        i = 0;
-        for(XYZ c: points){
-            D[i][0] = c.getY();
-            i++;
-        }
-        while(Math.abs(points.get(0).getX() - points.get(2).getX()) > eps && k < 100) {
-            for(j = 1; j < 3; j++)
-                for(i = j; i < 3; i++)
-                    D[i][j]=(D[i][j-1]-D[j-1][j-1])/(points.get(i).getX()-points.get(j-1).getX());
-
-            Q =(D[2][2] * (points.get(0).getX() + points.get(1).getX())
-                    - D[1][1]) / (2 * D[2][2]);
-
-
-            List<XYZ> lowerFgs = fgs.subList(0,4);
-            Collections.reverse(lowerFgs);
-
-            List<XYZ> upperFgs = fgs.subList(2,7);
-            Collections.reverse(upperFgs);
-
-            if(points.get(2).getY() < points.get(0).getY()){
-                /*List <XYZ> newFgs = run(new XYZ(Q,points.get(1).getY(), points.get(1).getZ()), lowerFgs);
-                D[0][0] = newFgs.get(0).getY();
-                points.set(0, newFgs.get(0));
-
-                Collections.reverse(newFgs);
-                for(j = 0; j < 4; ++ j)
-                    fgs.set(j,newFgs.get(j));*/
-            }else{
-                /*List <XYZ> newFgs = run(new XYZ(Q,points.get(1).getY(), points.get(1).getZ()), upperFgs);
-                D[2][0] = newFgs.get(0).getY();
-                points.set(2, newFgs.get(0));
-
-                Collections.reverse(newFgs);
-                for(j = 2; j < 6; ++ j)
-                    fgs.set(j,newFgs.get(j - 2));*/
-            }
-            k++;
-            System.out.println("k: " + k + "\t" + points.get(1));
-        }
-
     }
 }

@@ -4,6 +4,7 @@ import com.flequesboad.exercises.CompareXY;
 import com.flequesboad.exercises.XY;
 import com.flequesboad.exercises.XYZ;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -21,8 +22,9 @@ public class Interpolation {
     private Double minx(XY xy0, XY xy1, XY xy2){
         return (delta(xy0, xy1, xy2)*(xy0.getX() + xy1.getX()) - delta(xy0,xy1))/ (2 * delta(xy0, xy1, xy2));
     }
-    public void min(List<XYZ> xyz, double ep){
-        List<XYZ> points = getNeighborhood(xyz);
+    public List<List<XYZ>> extreme(List<XYZ> xyz, double ep, int isMax){
+        List<XYZ> points = getNeighborhood(xyz,isMax);
+        List<List<XYZ>> results = new ArrayList<>();
         Double[][] D = new Double[3][3]; //(3,{0,0,0});
         for(int i = 0; i < 3; ++i){
             for(int j = 0; j < 3; ++j)
@@ -48,23 +50,42 @@ public class Interpolation {
 
             AdamsBashfott nab = new AdamsBashfott(newShag,points.get(0),ex);
             nab.setMaxX(points.get(2).getX());
-            points = getNeighborhood(nab.getRes());
-
-            if(points.get(2).getY() > points.get(0).getY()){
-                D[0][0] = points.get(0).getY();
+            points = getNeighborhood(nab.getRes(), isMax);
+            if(isMax == 1){
+                if(points.get(2).getY() > points.get(0).getY()){
+                    D[0][0] = points.get(0).getY();
+                }else{
+                    D[2][0] = points.get(2).getY();
+                }
             }else{
-                D[2][0] = points.get(2).getY();
+                if(points.get(2).getY() < points.get(0).getY()){
+                    D[0][0] = points.get(0).getY();
+                }else{
+                    D[2][0] = points.get(2).getY();
+                }
             }
+
             k++;
-            System.out.println("k: " + k);
-            points.forEach(System.out::println);
-            System.out.println();
+            results.add(points);
         }
+        return results;
     }
-    List<XYZ> getNeighborhood(List <XYZ> xyz){
-        XYZ maxPoint = Collections.max(xyz, new CompareXY());
-        int indexMaxPoint = xyz.indexOf(maxPoint);
-        List<XYZ> points = xyz.subList(indexMaxPoint-1,indexMaxPoint+2);
+    List<XYZ> getNeighborhood(List <XYZ> xyz, int isMax){
+        XYZ extremePoint;
+        if(isMax == 1){
+            extremePoint = Collections.max(xyz, new CompareXY());
+        }else{
+            extremePoint = Collections.min(xyz, new CompareXY());
+        }
+        int indexExtremePoint = xyz.indexOf(extremePoint);
+        List<XYZ> points;
+        try {
+            points = xyz.subList(indexExtremePoint - 1, indexExtremePoint + 2);
+        }catch (IndexOutOfBoundsException e){
+            //e.printStackTrace();
+            System.out.println("Неправильная екстрема спросили, максимальна = 1, минимума = 0");
+            points = new ArrayList<>();
+        }
         return points;
     }
 }

@@ -45,8 +45,6 @@ public class Gxyz extends Fxyz{
                 return -1* (z*z + 1)/(1 + x*x);
             case 3:
                 return 6*x;
-            case 4:
-                return 0.5 * x * x - Math.sin(x);
         }
         return 2*y;//default exercise 1
     }

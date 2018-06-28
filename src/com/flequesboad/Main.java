@@ -134,7 +134,7 @@ public class Main extends Application {
         stage.show();
 
         Integer skipper = 0;
-        Integer skipperComparator = 2;//Integer.parseInt(Double.toString(hpechat/h));
+        Integer skipperComparator = 4;
 
         for(XYZ abc : xyz){
             if(abc.getX() <= max && skipper % skipperComparator == 0.0)

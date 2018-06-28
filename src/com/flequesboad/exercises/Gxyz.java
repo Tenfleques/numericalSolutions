@@ -48,9 +48,9 @@ public class Gxyz extends Fxyz{
             case 4:
                 return -y * Math.cosh(x);
             case 5:
-                return y;//ilidio
-            case 7:
-                return y+ 1;// aser
+                return (y*y + z*z)/y;//ilidio
+            case 6:
+                return (y*y + z*z)/y;// aser
         }
         return 2*y;//default exercise 1
     }

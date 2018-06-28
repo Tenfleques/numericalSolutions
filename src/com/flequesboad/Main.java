@@ -143,8 +143,8 @@ public class Main extends Application {
         }
 
         System.out.println();
-        System.out.println("Пойск y = 1.75693"); //Илидио
-        Double ypoisk = 1.75693;
+        System.out.println("Пойск y = 1.21448"); //Азер
+        Double ypoisk = 1.21448;
 
         Interpolation interpolationMin = new Interpolation(ex);
         eps = 0.00001;

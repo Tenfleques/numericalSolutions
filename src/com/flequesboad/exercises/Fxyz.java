@@ -61,6 +61,7 @@ public class Fxyz implements Callable<Double>{
             case 1:
             case 2:
             case 3:
+            case 4:
                 return z;
             default:
                 return z;

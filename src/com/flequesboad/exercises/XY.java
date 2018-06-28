@@ -24,7 +24,9 @@ public class XY implements Comparator<XY>{
     public Double getY() {
         return y;
     }
-
+    public Double dydx(XY an){
+        return (this.getY() - an.getY())/(this.getX() - an.getX());
+    }
     @Override
     public String toString(){
         return x + "; " + y;
